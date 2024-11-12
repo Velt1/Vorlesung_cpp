@@ -4,6 +4,8 @@ namen::namen() {
   this->nachname = "";
   this->vorname = "";
   this->alter = -1;
+  this->prev = NULL;
+  this->next = NULL;
 }
 namen::namen(std::string vorname, std::string nachname, int alter) {
   this->nachname = nachname;
