@@ -1,14 +1,19 @@
+#include<iostream>
 #include "vlist.hpp"
-#include <iostream>
 
-int main() {
+int main()
+{
 	vlist *l1 = new vlist;
-	l1->AddElement("Hans", "Mustermann", 22);
-	l1->AddElement("Peter", "Hans", 42);
-	l1->AddElement("Olaf", "Schroeder", 33);
-	l1->AddElement("Angela", "Merkel", 76);
 
-	l1->Output();
+	l1 -> AddElement("Hans", "Zimmer", 50);
+	l1 -> AddElement("Hilde","Garde", 70);
+	l1 -> AddElement("Angelo", "Merte", 58);
+	l1 -> AddElement("Daniel", "Jung", 46);
+
+	l1 -> Output(),
+
 	delete l1;
 	return 0;
+
 }
+
