@@ -70,63 +70,40 @@ public:
         }
         ~liste() { CleanUp(); }
 
-        void SwapElement(element *e)
+        element *SwapElement(element *ae)
         {
-                element *tempElement = e->next; // setze tempElement zu Element nach e
-                if (tempElement == NULL)
-                        return;
+                if (ae->next == NULL)
+                        return ae;
+                if (ae->prev == NULL && ae->next)
+                        return ae;
+                element *pe = ae->prev;
+                element *ne = ae->next;
+                element *nne = ne->next;
 
-                e->next = tempElement->next; // Setze next (davor) zu next (danach)
-                if (tempElement->next != NULL)
+                if (pe != NULL && nne != NULL)
                 {
-                        tempElement->next->prev = e; // Setze prev (danach danach) zu prev (danach)
-                }
-                tempElement->prev = e->prev; // setze prev (danach) zu prev (davor)
-                if (e->prev != NULL)
-                {
-                        e->prev->next = tempElement; // setze next (davor davor) zu next ( danach)
-                }
-                else
-                {
-                        this->erstesElement = tempElement;
-                }
-                tempElement->next = e; // next (danach) zu next (davor)
-                e->prev = tempElement; // prev (davor) zu prev (danach)
-
-                if (e->next == NULL)
-                {
-                        this->letztesElement = e;
+                        pe->next = ne;
+                        ne->prev = pe;
                 }
         }
 
         void SortAlter()
         {
                 element *sortElement = this->erstesElement;
-                element *naechstesElement = NULL;
-                int counter = 0;
-                bool swapped;
-                do
-                {
-                        swapped = false;
-                        element *sortElement = this->erstesElement;
 
-                        while (sortElement != NULL && sortElement->next != NULL)
+                while (sortElement->next != NULL)
+                {
+                        if (sortElement->alter > sortElement->next->alter)
                         {
-                                if (sortElement->alter > sortElement->next->alter)
+                                sortElement = this->SwapElement(sortElement);
+                                if (sortElement->prev != NULL)
                                 {
-                                        counter++;
-                                        this->SwapElement(sortElement);
-                                        swapped = true;
-                                }
-                                else
-                                {
-                                        sortElement = sortElement->next;
+                                        sortElement = sortElement->prev;
+                                        continue;
                                 }
                         }
-                } while (swapped); // Wiederholen bis alle sotiert sind. (Kein Swap mehr nötig war)
-
-                cout << "Anzahl der Durchläufe: " << counter << endl;
-                OutElemente();
+                        sortElement = sortElement->next;
+                }
         }
 };
 
