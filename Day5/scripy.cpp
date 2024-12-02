@@ -102,5 +102,23 @@ int main()
         cout << "a: " << a << endl;
         cout << "b: " << b << endl;
         cout << "c: " << c << endl;
+
+        // nur dynamische Verwendung
+        mystring *a2 = new mystring("Erster");
+        mystring *b2 = new mystring("Zweiter");
+        mystring *c2 = new mystring("");
+
+        // Verarbeitung IMMER mit Dereferenzierung
+
+        (*c2) = (*a2) + (*b2) + "Dritter";
+
+        cout << "a2: " << (*a2) << endl;
+        cout << "b2: " << (*b2) << endl;
+        cout << "c2: " << (*c2) << endl;
+
+        delete a2;
+        delete b2;
+        delete c2;
+
         return 0;
 }
